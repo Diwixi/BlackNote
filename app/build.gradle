@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.diwixis.blacknote"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        project.ext.set("archivesBaseName", "BlackNote-" + defaultConfig.versionName)
+
+        task incrementVersionCode << {
+            def manifestFile = file('AndroidManifest.xml')
+            def matcher = Pattern.compile('versionCode=\"(\\d+)\"')
+                    .matcher(manifestFile.getText())
+            matcher.find()
+            def manifestContent = matcher.replaceAll('versionCode=\"' +
+                    ++Integer.parseInt(matcher.group(1)) + '\"')
+            manifestFile.write(manifestContent)
+        }
+
+        task incrementVersionName << {
+            def manifestFile = file('AndroidManifest.xml')
+            def matcher = Pattern.compile('versionName=\"(\\d+)\\.(\\d+)\"')
+                    .matcher(manifestFile.getText())
+            matcher.find()
+            def versionName = String.format("%.2f", Integer
+                    .parseInt(matcher.group(1)) + Double.parseDouble("." + matcher
+                    .group(2)) + 0.01)
+            def manifestContent = matcher.replaceAll('versionName=\"' +
+                    versionName + '\"')
+            manifestFile.write(manifestContent)
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+def moxyVersion = '1.5.3'
+def daggerVersion = '2.11'
+def rxJavaVersion = '2.1.2'
+def rxAndroidVersion = '2.0.1'
+
+dependencies {
+    //rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    //di
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    //moxy
+    implementation "com.arello-mobile:moxy:$moxyVersion"
+    implementation "com.arello-mobile:moxy-app-compat:$moxyVersion"
+    annotationProcessor "com.arello-mobile:moxy-compiler:$moxyVersion"
+    //image
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'cn.bluemobi.dylan:photoview:1.4'
+    //base
+    implementation "com.jakewharton:butterknife:8.8.1"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'me.tatarka:gradle-retrolambda:3.6.0'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

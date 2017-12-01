@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BlackNote</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="done">DONE</string>
+    <string name="revert">REVERT</string>
+    <string name="add_image">add image</string>
+    <string name="from_storage">from storage</string>
+    <string name="from_camera">from camera</string>
+    <string name="title_item_list">Title:</string>
+    <string name="item_message">Message:</string>
+    <string name="message_description">message</string>
+    <string name="message_status_description">Message status</string>
+</resources>
