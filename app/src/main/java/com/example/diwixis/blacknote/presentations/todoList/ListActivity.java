@@ -1,13 +1,8 @@
 package com.example.diwixis.blacknote.presentations.todoList;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.View;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -75,19 +70,17 @@ public class ListActivity extends MvpAppCompatActivity implements IListView{
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, EDIT, Menu.NONE, "Открыть");
-        menu.add(Menu.NONE, DELETE, Menu.NONE, "Сохранить");
+    public void startItemActivity(int noteId) {
+        ListItemActivity.startActivity(this, noteId);
     }
 
     @Override
-    public void startItemActivity(Note note) {
-        ListItemActivity.startActivity(this, note);
+    public void startItemActivity() {
+        ListItemActivity.startActivity(this);
     }
 
     @OnClick(R.id.addNewItem)
     void onClickAddButton(){
-        presenter.editItem(new Note());
+        presenter.newItem();
     }
 }

@@ -22,7 +22,11 @@ public class ListPresenter extends MvpPresenter<IListView>{
     }
 
     void editItem(Note note) {
-        getViewState().startItemActivity(note);
+        getViewState().startItemActivity(note.getId());
+    }
+
+    void newItem() {
+        getViewState().startItemActivity();
     }
 
     RealmResults<Note> getNotesFromDb() {

@@ -22,12 +22,8 @@ public class ListItemPresenter extends MvpPresenter<IListItemView> {
     }
 
     void canShow(Intent intent) {
-        Note note = new Note(intent.getIntExtra(Note.extraId, 0),
-                intent.getIntExtra(Note.extraColorRes, 0),
-                intent.getIntExtra(Note.extraNextColorRes, 0),
-                intent.getStringExtra(Note.extraMessage),
-                intent.getStringExtra(Note.extraMessageTitle),
-                intent.getBooleanExtra(Note.extraIsChecked, false));
+        int id = intent.getIntExtra(Note.extraId, -1);
+        Note note = (id == -1) ? new Note() : dataInteractor.getNoteById(id);
         getViewState().fillingFields(note);
     }
 

@@ -20,6 +20,10 @@ public class DataInteractor {
         return dbRepository.getNotes();
     }
 
+    public Note getNoteById(int noteId) {
+        return dbRepository.getNoteById(noteId);
+    }
+
     public void deleteNote(Note note) {
         dbRepository.deleteNote(note);
     }

@@ -2,7 +2,7 @@ package com.example.diwixis.blacknote.data;
 
 import android.support.annotation.NonNull;
 
-import io.realm.RealmResults;
+import java.util.List;
 
 /**
  * Created by Diwixis on 08.08.2017.
@@ -10,7 +10,9 @@ import io.realm.RealmResults;
 
 interface IDbRepository {
     @NonNull
-    RealmResults<Note> getNotes();
+    List<Note> getNotes();
+
+    Note getNoteById(int id);
 
     void setNote(Note note);
 

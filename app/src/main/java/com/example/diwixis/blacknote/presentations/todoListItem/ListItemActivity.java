@@ -28,17 +28,19 @@ public class ListItemActivity extends MvpAppCompatActivity implements IListItemV
 
     private Note lastNote;
 
-    public static void startActivity(Activity activity, Note note){
+    public static void startActivity(Activity activity, int noteId){
         Intent intent = new Intent(activity, ListItemActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Note.extraColorRes, note.getImageResId());
-        intent.putExtra(Note.extraNextColorRes, note.getNextImageResId());
-        intent.putExtra(Note.extraMessage, note.getMessage());
-        intent.putExtra(Note.extraMessageTitle, note.getMessageTitle());
-        intent.putExtra(Note.extraIsChecked, note.isFlag());
-        intent.putExtra(Note.extraId, note.getId());
+        intent.putExtra(Note.extraId, noteId);
         activity.startActivity(intent);
     }
+
+    public static void startActivity(Activity activity){
+        Intent intent = new Intent(activity, ListItemActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
+
 
     private void saveNote() {
         lastNote.setMessageTitle(textMessageTitle.getText().toString());
@@ -81,7 +83,8 @@ public class ListItemActivity extends MvpAppCompatActivity implements IListItemV
 
     @Override
     public void onBackPressed() {
-        if (!lastNote.getMessage().equals(textMessage.getText().toString())){
+        if (!lastNote.getMessage().equals(textMessage.getText().toString()) ||
+                !lastNote.getMessageTitle().equals(textMessageTitle.getText().toString())){
             backAlertDialog();
         } else {
             finish();
