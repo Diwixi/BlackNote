@@ -5,10 +5,10 @@ About:
 -  Add/Delete/Edit notes
 
 Uses:
--  Dagger
+-  Dagger2
 -  Glide
 -  RxJava2
--  MOXY
+-  Moxy
 -  Picasso
 -  Butterknife
 
