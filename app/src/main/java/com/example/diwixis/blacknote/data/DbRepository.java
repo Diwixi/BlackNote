@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * Created by Diwixis on 08.08.2017.
@@ -22,7 +23,7 @@ public class DbRepository implements IDbRepository {
     public RealmResults<Note> getNotes() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        RealmResults<Note> results = realm.where(Note.class).findAll();
+        RealmResults<Note> results = realm.where(Note.class).findAllSorted("flag", Sort.ASCENDING);
         realm.commitTransaction();
         return results;
     }

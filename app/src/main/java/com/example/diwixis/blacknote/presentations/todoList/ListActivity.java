@@ -47,6 +47,7 @@ public class ListActivity extends MvpAppCompatActivity implements IListView{
         @Override
         public void updateItem(Note note, boolean flag) {
             presenter.updateItemAndFlag(note, flag);
+            todoList.getAdapter().notifyDataSetChanged();
         }
     };
 
