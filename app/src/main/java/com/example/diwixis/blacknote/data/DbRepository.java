@@ -2,6 +2,8 @@ package com.example.diwixis.blacknote.data;
 
 import android.support.annotation.NonNull;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import io.realm.Realm;
@@ -23,7 +25,10 @@ public class DbRepository implements IDbRepository {
     public RealmResults<Note> getNotes() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        RealmResults<Note> results = realm.where(Note.class).findAllSorted("flag", Sort.ASCENDING);
+        String[] fields = new String[]{"flag", "id"};
+        Sort[] sorted = new Sort[]{Sort.ASCENDING, Sort.DESCENDING};
+        RealmResults<Note> results = realm.where(Note.class)
+                .findAllSorted(fields, sorted);
         realm.commitTransaction();
         return results;
     }
